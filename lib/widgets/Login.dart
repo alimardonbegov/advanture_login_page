@@ -18,10 +18,53 @@ class Login extends StatelessWidget {
             child: Column(
               children: [
                 _Logo(),
-                _ValidationArea(labelText: inputTexts),
-                _ForgetPassword(linkPage: "https://advanture.me/"),
+                _Inputs(inputTexts: inputTexts),
+                SizedBox(height: 50),
+                _ButtonLogin()
               ],
             )));
+  }
+}
+
+class _ButtonLogin extends StatelessWidget {
+  const _ButtonLogin({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: ElevatedButton(
+          child: Text("Login"),
+          onPressed: () => {null},
+          style: ElevatedButton.styleFrom(
+              backgroundColor: blueColor,
+              padding: EdgeInsets.fromLTRB(50, 25, 50, 25))),
+    );
+  }
+}
+
+class _Inputs extends StatelessWidget {
+  const _Inputs({
+    Key? key,
+    required this.inputTexts,
+  }) : super(key: key);
+
+  final List<InputLabels> inputTexts;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          _ValidationArea(labelText: inputTexts),
+          _ForgetPassword(linkPage: "https://advanture.me/"),
+        ],
+      ),
+    );
   }
 }
 
@@ -34,12 +77,13 @@ class _ForgetPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
       child: Link(
           uri: Uri.parse(linkPage),
           builder: (context, followLink) {
             return Container(
               alignment: Alignment.centerLeft,
+              padding: EdgeInsets.all(8.0),
               child: RichText(
                   text: TextSpan(children: [
                 TextSpan(
@@ -74,7 +118,6 @@ class _ValidationArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 400,
         padding: EdgeInsets.only(top: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -90,8 +133,7 @@ class _ValidationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 400,
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
         child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
               alignment: Alignment.centerLeft,
