@@ -1,5 +1,7 @@
 import 'package:advanture/assets/colors.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/link.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});
@@ -12,25 +14,50 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-            color: greyColor,
+            color: backgroundColor,
             child: Column(
               children: [
                 _Logo(),
                 _ValidationArea(labelText: inputTexts),
-                _ForgetPassword(),
+                _ForgetPassword(linkPage: "https://advanture.me/"),
               ],
             )));
   }
 }
 
 class _ForgetPassword extends StatelessWidget {
+  final String linkPage;
   const _ForgetPassword({
     Key? key,
+    required this.linkPage,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Text("Забыли пароль? Вам сюда!");
+    return Center(
+      child: Link(
+          uri: Uri.parse(linkPage),
+          builder: (context, followLink) {
+            return Container(
+              alignment: Alignment.centerLeft,
+              child: RichText(
+                  text: TextSpan(children: [
+                TextSpan(
+                  text: "Забыли пароль? ",
+                  style: TextStyle(color: greyColor),
+                ),
+                TextSpan(
+                  text: "Вам сюда!",
+                  style: TextStyle(
+                    decoration: TextDecoration.underline,
+                    color: blueColor,
+                  ),
+                  recognizer: TapGestureRecognizer()..onTap = followLink,
+                ),
+              ])),
+            );
+          }),
+    );
   }
 }
 
